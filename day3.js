@@ -18,14 +18,61 @@
 //How many steps are required to carry the data from the puzzle input all the way to the access port
 const input = 361527;
 
-//create spiral storage up to input
-// 1 is at x0 y0
-// 2 is at x1 y0
-// 3 is at x1 y1
-// 4 is at x0 y1
-// 5 is at x-1 y1
-// 6 is at x-1 y0
-// 7 is at x-1 y-1
-//first we may want to find length in squares x can be the midpoint
+console.log(stepOne(input));
 
-//count squares from 1 to input
+function stepOne(input){
+    var result = createSpiral(input);
+    var singleSpiral = result[input - 1].getLocation();
+    return findDistance(singleSpiral[0], singleSpiral[1]);
+}
+
+function createSpiral(length){ 
+    var spiral = [];
+    spiral.push(new square(0, 0, 1));
+    var x = 1;
+    var y = 0;
+    var i = 2;
+
+    let sideLength = 2;
+    while(i < length){
+        //create right (bottom to top);
+        for(let j = 0; j < sideLength - 1; j++){
+            spiral.push(new square(x, y, i));
+            i++;
+            y++;
+        }
+        //create top (right to left)
+        for(let j = 0; j < sideLength; j++){
+            spiral.push(new square(x, y, i));
+            i++;
+            x--;
+        }
+        //create left (top to bottom)
+        for(let j = 0; j < sideLength; j++){
+            spiral.push(new square(x, y, i));
+            i++;
+            y--;
+        }
+        //create bottom (left to right) and add an extra to the right
+        for(let j = 0; j < sideLength + 1; j++){
+            spiral.push(new square(x, y, i));
+            i++;
+            x++;
+        }
+        sideLength += 2;
+    }
+    return spiral;
+}
+
+function findDistance(x, y){
+    return Math.abs(x) + Math.abs(y);
+}
+
+function square(x, y, i){
+    this.x = x;
+    this.y = y;
+    this.value = i;
+    this.getLocation = function(){
+        return [this.x, this.y];
+    }
+}
