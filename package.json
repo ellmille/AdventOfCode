@@ -1,0 +1,19 @@
+{
+  "name": "advent-code",
+  "version": "1.0.0",
+  "description": "playing with advent code 2017",
+  "main": "app.js",
+  "scripts": {
+    "test": "canary"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ellmille/AdventOfCode.git"
+  },
+  "author": "emiller",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ellmille/AdventOfCode/issues"
+  },
+  "homepage": "https://github.com/ellmille/AdventOfCode#readme"
+}
