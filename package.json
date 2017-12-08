@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/ellmille/AdventOfCode/issues"
   },
-  "homepage": "https://github.com/ellmille/AdventOfCode#readme"
+  "homepage": "https://github.com/ellmille/AdventOfCode#readme",
+  "dependencies": {
+    "underscore": "^1.8.3"
+  }
 }

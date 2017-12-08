@@ -19,7 +19,7 @@ const readLine = require('readline');
 const stream = require('stream');
 
 //const inputFile = process.argv[2];
-const input = fs.createReadStream("day2Input.txt");
+const input = fs.createReadStream("input/day2Input.txt");
 const lineReader = readLine.createInterface(input);
 
 var inputArray = [];
