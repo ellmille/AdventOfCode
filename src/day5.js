@@ -36,6 +36,7 @@ lineReader.on('line', function (line) {
 
 lineReader.on('close', function () {
    console.log(stepThroughInstructions(inputArray)); //342669
+   console.log(stepThroughNewRules(inputArray)); //25136209
 });
 
 //keep track of steps
@@ -51,6 +52,35 @@ function stepThroughInstructions(instructionArray){
         index += inputArray[i];
         //increment step
         inputArray[i]++;
+        //increment step count
+        count++;
+    }
+    return count;
+}
+
+//Now, the jumps are even stranger: after each jump, 
+//if the offset was three or more, instead decrease it by 1. 
+//Otherwise, increase it by 1 as before.
+
+//Using this rule with the above example, the process now takes 10 steps, 
+//and the offset values after finding the exit are left as 2 3 2 3 -1.
+
+function stepThroughNewRules(instructionArray){
+    var count = 0; //step count
+    let inputArray = instructionArray.slice();
+    //find first step
+    let index = 0;
+    //iterate through while still correlates with an index within the array
+    while(index < inputArray.length){
+        let i = index;
+        //find new index
+        index += inputArray[i];
+        if(inputArray[i] >= 3){
+            inputArray[i]--;
+        }else{
+            //increment step
+            inputArray[i]++;
+        }
         //increment step count
         count++;
     }
