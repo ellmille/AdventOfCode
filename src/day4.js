@@ -26,7 +26,7 @@ lineReader.on('line', function (line) {
 lineReader.on('close', function () {
     console.log("input array = "+inputArray.length);
     console.log("Step One: "+findValidPassPhrases(inputArray, 1)); //325
-    console.log("Step Two: "+findValidPassPhrases(inputArray, 2));
+    console.log("Step Two: "+findValidPassPhrases(inputArray, 2)); //119
 })
 
 //truns line into an array of words
@@ -40,7 +40,7 @@ function findValidPassPhrases(input, step){
             sum += findRepeatsInPhrase(rowArray);
         }
         if(step == 2){
-            sum += findAnagramsInPhrase(rowArray);
+           sum += findRepeatsInPhrase(sortArray(rowArray));
         }
     }
     return sum;
@@ -60,55 +60,15 @@ function findRepeatsInPhrase(rowArray){
     return 1;
 }
 
-function findAnagramsInPhrase(rowArray){
-    for (let i = 0; i < rowArray.length; i++) {
-        //copy array
-        let arrayCopy = rowArray.slice();
-        let phrase = arrayCopy[i];
-        let compare = _.without(arrayCopy, arrayCopy[i]);
-        let anagram = searchArray(compare, phrase);
-        if(anagram){
-            return 0;
-        }
-        // let compare = findAnagrams(i, rowArray);
-        // if (compare) {
-        //     //found an anagram
-        //     return 0;
-        // }
-    }
-    return 1;
-}
-
-function searchArray(compareArray, phrase){
-    for (let i = 0; i < compareArray.length; i++) {
-        if(compareArray[i].length == phrase.length){
-            //now we have to check if the letters are the same
-            let difference = _.difference(phrase.split(""), compareArray[i].split(""));
-            if(difference.length == 0){
-                //password is invalid
-                return true; 
-            }
-        }
-    }
-    return false;
-}
 
 //a valid passphrase must contain no two words that are anagrams of each other
 //a passphrase is invalid if any word's letters can be rearranged to form any other word in the passphrase.
 
-function findAnagrams(n, rowArray) {
-    for (let i = 0; i < rowArray.length; i++) {
-        if (i !== n) {
-            //are the phrases even the same length
-            if(rowArray[n].length === rowArray[i].length){
-                //now we have to check if the letters are the same
-                let difference = _.difference(rowArray[n].split(""), rowArray[i].split(""));
-                if(difference.length == 0){
-                    //password is invalid
-                    return true;
-                }
-            }
-        }
+function sortArray(arrayIn){
+    let sortedArray = [];
+    for(let i = 0; i < arrayIn.length; i++){
+        let sorted = arrayIn[i].split("").sort();
+        sortedArray.push(sorted.toString());
     }
-    return false;
+    return sortedArray;
 }
